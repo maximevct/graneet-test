@@ -5,6 +5,11 @@
   "username": "postgres",
   "password": "postgres",
   "database": "graneet",
-  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "entities": ["dist/**/*.entity.js"],
+  "migrationsTableName": "migrations",
+  "migrations": ["dist/migration/*.js"],
+  "cli": {
+    "migrationsDir": "migration"
+  },
   "synchronize": true
 }

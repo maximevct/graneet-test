@@ -10,7 +10,7 @@ const allCities = [
 
 const mockCitiesService = {
   findAll: jest.fn().mockResolvedValue(allCities),
-}
+};
 
 describe('CitiesController', () => {
   let controller: CitiesController;

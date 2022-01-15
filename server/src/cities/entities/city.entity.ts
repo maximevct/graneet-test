@@ -6,10 +6,10 @@ export class City {
   id: number;
 
   @Column()
-  zipCode: number;
+  zipCode: string;
 
   @Column()
-  zipCity: number;
+  zipCity: string;
 
   @Column()
   name: string;
