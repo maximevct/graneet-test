@@ -5,7 +5,7 @@ import { CitiesService } from './cities.service';
 const allCities = [
   { zipCode: 44000, city: 'Nantes' },
   { zipCode: 44100, city: 'Nantes' },
-  { zipCode: 85400, city: 'Lucçon' },
+  { zipCode: 85400, city: 'Luçon' },
 ];
 
 const mockCitiesService = {
@@ -36,7 +36,7 @@ describe('CitiesController', () => {
       const expected = [
         { zipCode: 44000, city: 'Nantes' },
         { zipCode: 44100, city: 'Nantes' },
-        { zipCode: 85400, city: 'Lucçon' },
+        { zipCode: 85400, city: 'Luçon' },
       ];
       const actual = await controller.findAll();
       expect(actual).toEqual(expected);
