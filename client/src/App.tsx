@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Container, Alert, Card, CardContent } from '@mui/material';
 
 interface City {
   id: number;
@@ -12,14 +12,36 @@ interface City {
 
 function CityList({title, cities}: { title: string, cities: City[] }) {
   const compCities = cities.map((e, i) =>
-    <Grid item xs={12} sm={6} md={3} key={i}>
-      {e.name} - {e.zipCode}
+    <Grid item xs={12} md={6} key={i}>
+      <Card sx={{ backgroundColor: '#737680' }}>
+        <CardContent>
+          <Grid container>
+            <Grid item xs={10} color="white">
+              {e.name}
+            </Grid>
+            <Grid item textAlign="right" xs={2} color="#adadad">
+              {e.zipCode}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
     </Grid>
   );
+  const compNbrCities = cities.length
+    ? <Grid item xs={12} textAlign="center" my={2}>
+        <Alert icon={false} severity="success">{cities.length} ville{cities.length > 1 ? 's' : ''} correspondant au texte saisi</Alert>
+      </Grid>
+    : <Grid item xs={12} textAlign="center" my={2}>
+        <Alert icon={false} severity="error">Aucune ville correspondant au texte saisi</Alert>
+      </Grid>
+  ;
   return (
-    <Grid item container xs={6}>
-      <Grid item xs={12} textAlign="center"><h1>{title}</h1></Grid>
-      <Grid item container xs={12}>{compCities}</Grid>
+    <Grid item xs={6}>
+      <Grid item px={2} pb={2} sx={{ backgroundColor: '#e8e8e8', borderRadius: '10px' }}>
+        <Grid item xs={12} textAlign="center"><h2>{title}</h2></Grid>
+        {compNbrCities}
+        <Grid item container xs={12} spacing={2}>{compCities}</Grid>
+      </Grid>
     </Grid>
   )
 }
@@ -39,16 +61,18 @@ function App() {
   }, [search]);
 
   return (
-    <Grid container spacing={2}>
-      <Grid sx={{ flexGrow: 1 }} container item alignItems="center" justifyContent="center" xs={12}>
-        <Grid item xs={3} textAlign="center">Je recherche </Grid>
+    <Container>
+      <Grid container spacing={2} alignItems="center" sx={{ backgroundColor: '#e8e8e8', borderRadius: '10px', padding: '0 10px', marginTop: '10px'}}>
+        <Grid item xs={3} textAlign="center"><h2>Je recherche...</h2></Grid>
         <Grid item xs={9}>
-          <TextField fullWidth label="Ville ou Code Postal" id="search" variant="filled" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <TextField fullWidth label="...une ville, un code postal" id="search" variant="standard" value={search} onChange={(e) => setSearch(e.target.value)} />
         </Grid>
       </Grid>
-      <CityList title="Villes de métropole" cities={citiesMetro} />
-      <CityList title="Villes d'outre-mer" cities={citiesDom} />
-    </Grid>
+      <Grid container alignItems="stretch" spacing={2}>
+        <CityList title="Villes de métropole" cities={citiesMetro} />
+        <CityList title="Villes d'outre-mer" cities={citiesDom} />
+      </Grid>
+    </Container>
   );
 }
 
